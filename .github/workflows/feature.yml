@@ -3,8 +3,7 @@ name: Feature Checking
 on:
   push:
     branches:
-      - '**'
-      - '!master'
+      - 'master'
 
 env:
   SOME_ENVIRONMENT: this_is_your_environment
