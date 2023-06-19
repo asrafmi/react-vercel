@@ -6,7 +6,8 @@ on:
       - 'master'
 
 env:
-  SOME_ENVIRONMENT: this_is_your_environment
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
 jobs:
   checking-features:
@@ -29,10 +30,18 @@ jobs:
 
       - name: test if app is working
         run: until curl -v http://localhost:3000 > /dev/null; do sleep 1; done
+jobs:
+  Deploy-Production:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Vercel CLI
+        run: yarn global add vercel@latest
 
-      - name: install vercel CLI
-        run: yarn global add vercel
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
-      - name: deploy to production vercel
-        run: |
-          echo "y" | echo -ne '\n' | vercel --prod
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
