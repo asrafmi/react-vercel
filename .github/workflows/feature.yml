@@ -32,9 +32,6 @@ jobs:
       - name: test if app is working
         run: until curl -v http://localhost:3000 > /dev/null; do sleep 1; done
 
-  Deploy-Production:
-    runs-on: ubuntu-latest
-    steps:
       - name: Install Vercel CLI
         run: yarn global add vercel@latest
 
