@@ -34,4 +34,7 @@ jobs:
         run: yarn global add vercel
 
       - name: deploy to production vercel
-        run: vercel --prod
+        run: |
+          echo "y"
+          echo -ne '\n'
+          vercel --prod
