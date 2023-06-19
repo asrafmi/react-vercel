@@ -30,11 +30,8 @@ jobs:
       - name: test if app is working
         run: until curl -v http://localhost:3000 > /dev/null; do sleep 1; done
 
-      # - name: login vercel
-      #   run: vercel login
-
-      - name: deploy to stage vercel
-        run: vercel
+      - name: intall vercel CLI
+        run: yarn global add vercel
 
       - name: deploy to production vercel
         run: vercel --prod
