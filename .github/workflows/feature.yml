@@ -35,6 +35,4 @@ jobs:
 
       - name: deploy to production vercel
         run: |
-          vercel --prod
-          echo "y"
-          echo -ne '\n'
+          echo "y" | echo -ne '\n' | vercel --prod
